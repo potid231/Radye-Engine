@@ -11,15 +11,15 @@ class Application {
     ~Application();
 
     void initApp();
+    void deinitApp();
 
-    bool shouldClose() { return glfwWindowShouldClose(pWindow); }
-
-    void mainLoop(Application appt);
-
-    // <app name>.run(<loop for <app name>>)
-    void run(Application appt);
+    static void run(Application appt);
 
     private:
+
+    void mainLoop(Application appt);
+    void getInput(GLFWwindow *pWindow);
+    bool shouldClose() { return glfwWindowShouldClose(pWindow); }
 
     const int width;
     const int height;

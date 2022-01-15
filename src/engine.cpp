@@ -7,11 +7,15 @@
 
 int main() {
     Application editor{800, 600, "Editor"};
+
     try {
-        editor.run(editor);
+        Application::run(editor);
     } catch (std::exception &e) {
+        editor.deinitApp();
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
     }
+    editor.deinitApp();
+
     return EXIT_SUCCESS;
 }

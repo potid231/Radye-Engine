@@ -1,6 +1,7 @@
 #include "application.hpp"
 
-#include "input.hpp"
+#include "input/mouse.hpp"
+#include "input/keyboard.hpp"
 
 void Application::initApp() {
     glfwInit();
@@ -11,14 +12,15 @@ void Application::initApp() {
     pWindow = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr);
 }
 
+void Application::deinitApp() {
+    glfwDestroyWindow(pWindow);
+}
+
 Application::Application(int w, int h, std::string name) : width{w}, height{h}, windowName{name} {
     initApp();
 }
 
-Application::~Application() {
-    glfwDestroyWindow(pWindow);
-    glfwTerminate();
-}
+Application::~Application() { glfwTerminate(); }
 
 void Application::mainLoop(Application appt) {
     while (!appt.shouldClose()) {
@@ -26,10 +28,34 @@ void Application::mainLoop(Application appt) {
     }
 }
 
+void Application::getInput(GLFWwindow *pWindow) {
+    // Mouse
+    glfwSetCursorPosCallback(pWindow, positionCallBack);
+    glfwSetCursorEnterCallback(pWindow, cursorEnterCallBack);
+    glfwSetScrollCallback(pWindow, scrollCallBack);
+    glfwSetMouseButtonCallback(pWindow, buttonCallBack);
+    // Mouse
+
+    // Keyboard
+    glfwSetKeyCallback(pWindow, keyCallBack);
+    glfwSetCharCallback(pWindow, charCallBack);
+    // Keyboard
+
+    // Cursor
+    glfwSetCursorPosCallback(pWindow, positionCallBack);
+    glfwSetCursorEnterCallback(pWindow, cursorEnterCallBack);
+    glfwSetScrollCallback(pWindow, scrollCallBack);
+    glfwSetMouseButtonCallback(pWindow, buttonCallBack);
+    // Cursor
+
+    // Keyboard
+    glfwSetKeyCallback(pWindow, keyCallBack);
+    glfwSetCharCallback(pWindow, charCallBack);
+    // Keyboard
+}
+
 void Application::run(Application appt) {
+    appt.getInput(appt.pWindow);
 
-    getInput(pWindow);
-
-    mainLoop(appt);
-
+    appt.mainLoop(appt);
 }
