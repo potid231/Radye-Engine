@@ -1,0 +1,14 @@
+# Build results
+/[Bb]uild/
+/x64/
+/x86/
+/[Rr]elease/
+/[Dd]ebug/
+/[Oo]ut/
+
+# IDE/Editor
+/.vs/
+/.vscode/
+
+# thirdparty
+/thirdparty/
